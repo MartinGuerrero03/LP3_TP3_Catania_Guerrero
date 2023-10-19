@@ -66,8 +66,13 @@ namespace LP3_TP3_Catania_Guerrero
                         tableRow.Cells.Add(cell3);
 
                         TableCell cell4 = new TableCell();
-                        cell4.Text = row["tipo"].ToString();
+                        bool tipo = (bool)row["tipo"];
+                        if (tipo)
+                            cell4.Text = "Haber";
+                        else
+                            cell4.Text = "Debe";
                         tableRow.Cells.Add(cell4);
+
 
                         Table1.Rows.Add(tableRow);
                     }
