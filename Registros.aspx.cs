@@ -27,25 +27,25 @@ namespace LP3_TP3_Catania_Guerrero
                 if (dv != null && dv.Count > 0)
                 {
                     // Rellenar cabecera
-                    TableRow headerRow = new TableRow();
+                    /*TableRow headerRow = new TableRow();
 
                     TableCell headerCell1 = new TableCell();
-                    headerCell1.Text = "Cuenta";
+                    headerCell1.Text = "Id";
                     headerRow.Cells.Add(headerCell1);
 
                     TableCell headerCell2 = new TableCell();
-                    headerCell2.Text = "Descripción";
+                    headerCell2.Text = "Monto";
                     headerRow.Cells.Add(headerCell2);
 
                     TableCell headerCell3 = new TableCell();
-                    headerCell3.Text = "Monto";
+                    headerCell3.Text = "Tipo";
                     headerRow.Cells.Add(headerCell3);
 
                     TableCell headerCell4 = new TableCell();
-                    headerCell4.Text = "Tipo";
+                    headerCell4.Text = "Tipo Cuenta";
                     headerRow.Cells.Add(headerCell4);
 
-                    Table1.Rows.Add(headerRow);
+                    Table1.Rows.Add(headerRow);*/
 
                     // Rellenar las filas
                     foreach (DataRowView rowView in dv)
@@ -54,25 +54,24 @@ namespace LP3_TP3_Catania_Guerrero
                         TableRow tableRow = new TableRow();
 
                         TableCell cell1 = new TableCell();
-                        cell1.Text = row["idCuenta"].ToString();
+                        cell1.Text = row["id"].ToString();
                         tableRow.Cells.Add(cell1);
 
                         TableCell cell2 = new TableCell();
-                        cell2.Text = row["descripcion"].ToString();
+                        cell2.Text = row["monto"].ToString();
                         tableRow.Cells.Add(cell2);
 
                         TableCell cell3 = new TableCell();
-                        cell3.Text = row["monto"].ToString();
+                        bool tipo = (bool)row["tipo"];
+                        if (tipo)
+                            cell3.Text = "Haber";
+                        else
+                            cell3.Text = "Debe";
                         tableRow.Cells.Add(cell3);
 
                         TableCell cell4 = new TableCell();
-                        bool tipo = (bool)row["tipo"];
-                        if (tipo)
-                            cell4.Text = "Haber";
-                        else
-                            cell4.Text = "Debe";
+                        cell4.Text = row["Expr1"].ToString();
                         tableRow.Cells.Add(cell4);
-
 
                         Table1.Rows.Add(tableRow);
                     }
@@ -89,9 +88,8 @@ namespace LP3_TP3_Catania_Guerrero
             DataView dv = (DataView)dsGetTransacciones.Select(DataSourceSelectArguments.Empty);
             if (dv != null && dv.Count > 0)
             {
-                DataRowView row = dv[0];
+                DataRowView row = dv[dlTransacciones.SelectedIndex]; 
                 dlCuentas.SelectedValue = row["idCuenta"].ToString();
-                txDescripcion.Text = row["descripcion"].ToString();
                 txMonto.Text = row["monto"].ToString();
                 dlTipo.SelectedValue = row["tipo"].ToString();
             }
@@ -106,7 +104,6 @@ namespace LP3_TP3_Catania_Guerrero
                 lbResultado.Text = "Transacción agregada con éxito.";
                 completarTabla();
                 dlTransacciones.DataBind();
-                txDescripcion.Text = string.Empty;
                 txMonto.Text = string.Empty;
             }
             else
@@ -125,7 +122,6 @@ namespace LP3_TP3_Catania_Guerrero
                 lbResultado.Text = "Transacción actualizada.";
                 completarTabla();
                 dlTransacciones.DataBind();
-                txDescripcion.Text = string.Empty;
                 txMonto.Text = string.Empty;
             }
             else
@@ -144,7 +140,6 @@ namespace LP3_TP3_Catania_Guerrero
                 lbResultado.Text = "Registro eliminado.";
                 completarTabla();
                 dlTransacciones.DataBind();
-                txDescripcion.Text = string.Empty;
                 txMonto.Text = string.Empty;
             }
             else

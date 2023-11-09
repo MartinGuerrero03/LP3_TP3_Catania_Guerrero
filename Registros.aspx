@@ -16,7 +16,7 @@
             Registros Contables:<br />
             <br />
             Seleccionar transacción:
-            <asp:DropDownList ID="dlTransacciones" runat="server" AutoPostBack="True" DataSourceID="dsGetTransacciones" DataTextField="descripcion" DataValueField="id" OnSelectedIndexChanged="dlTransacciones_SelectedIndexChanged" Width="200px">
+            <asp:DropDownList ID="dlTransacciones" runat="server" AutoPostBack="True" DataSourceID="dsGetTransacciones" DataTextField="id" DataValueField="id" OnSelectedIndexChanged="dlTransacciones_SelectedIndexChanged" Width="200px">
             </asp:DropDownList>
 &nbsp;
             <asp:Button ID="btEliminar" runat="server" Text="Eliminar" OnClick="btEliminar_Click" />
@@ -26,9 +26,7 @@
             Cuenta:
             <asp:DropDownList ID="dlCuentas" runat="server" AutoPostBack="True" DataSourceID="dsGetCuentas" DataTextField="descripcion" DataValueField="id" OnSelectedIndexChanged="dlCuentas_SelectedIndexChanged">
             </asp:DropDownList>
-&nbsp;&nbsp; Descripción:
-            <asp:TextBox ID="txDescripcion" runat="server" required="true" Width="270px"></asp:TextBox>
-&nbsp;&nbsp; Monto:
+&nbsp;&nbsp;Monto:
             <asp:TextBox ID="txMonto" runat="server" required="true" Width="150px"></asp:TextBox>
 &nbsp;&nbsp; Tipo:
             <asp:DropDownList ID="dlTipo" runat="server">
@@ -42,23 +40,27 @@
             <asp:Button ID="btModificar" runat="server" OnClick="btModificar_Click" Text="Modificar" />
             <br />
             <br />
-            <asp:Table ID="Table1" runat="server">
+            <asp:Table ID="Table1" runat="server" CellSpacing="10">
+                <asp:TableHeaderRow>
+        <asp:TableHeaderCell Text="Id" />
+        <asp:TableHeaderCell Text="Monto"  />
+        <asp:TableHeaderCell Text="Tipo"  />
+        <asp:TableHeaderCell Text="Tipo Cuenta" />
+    </asp:TableHeaderRow>
             </asp:Table>
-            <asp:SqlDataSource ID="dsGetTransacciones" runat="server" ConnectionString="<%$ ConnectionStrings:cadena %>" SelectCommand="SELECT RegistrosContables.id, RegistrosContables.idCuenta, RegistrosContables.descripcion, RegistrosContables.monto, RegistrosContables.tipo, Cuentas.descripcion AS Expr1 FROM RegistrosContables INNER JOIN Cuentas ON RegistrosContables.idCuenta = Cuentas.id"></asp:SqlDataSource>
+            <asp:SqlDataSource ID="dsGetTransacciones" runat="server" ConnectionString="<%$ ConnectionStrings:cadena %>" SelectCommand="SELECT RegistrosContables.id, RegistrosContables.idCuenta, RegistrosContables.monto, RegistrosContables.tipo, Cuentas.descripcion AS Expr1 FROM RegistrosContables INNER JOIN Cuentas ON RegistrosContables.idCuenta = Cuentas.id"></asp:SqlDataSource>
             <asp:SqlDataSource ID="dsGetCuentas" runat="server" ConnectionString="<%$ ConnectionStrings:cadena %>" SelectCommand="SELECT * FROM [Cuentas]"></asp:SqlDataSource>
-            <asp:SqlDataSource ID="dsABMRegistros" runat="server" ConnectionString="<%$ ConnectionStrings:cadena %>" DeleteCommand="DELETE FROM [RegistrosContables] WHERE [id] = @id" InsertCommand="INSERT INTO [RegistrosContables] ([idCuenta], [descripcion], [monto], [tipo]) VALUES (@idCuenta, @descripcion, @monto, @tipo)" SelectCommand="SELECT * FROM [RegistrosContables]" UpdateCommand="UPDATE [RegistrosContables] SET [idCuenta] = @idCuenta, [descripcion] = @descripcion, [monto] = @monto, [tipo] = @tipo WHERE [id] = @id">
+            <asp:SqlDataSource ID="dsABMRegistros" runat="server" ConnectionString="<%$ ConnectionStrings:cadena %>" DeleteCommand="DELETE FROM [RegistrosContables] WHERE [id] = @id" InsertCommand="INSERT INTO [RegistrosContables] ([idCuenta], [monto], [tipo]) VALUES (@idCuenta, @monto, @tipo)" SelectCommand="SELECT * FROM [RegistrosContables]" UpdateCommand="UPDATE [RegistrosContables] SET [idCuenta] = @idCuenta, [monto] = @monto, [tipo] = @tipo WHERE [id] = @id">
                 <DeleteParameters>
                     <asp:ControlParameter ControlID="dlTransacciones" Name="id" PropertyName="SelectedValue" Type="Int32" />
                 </DeleteParameters>
                 <InsertParameters>
                     <asp:ControlParameter ControlID="dlCuentas" Name="idCuenta" PropertyName="SelectedValue" Type="Int32" />
-                    <asp:ControlParameter ControlID="txDescripcion" Name="descripcion" PropertyName="Text" Type="String" />
                     <asp:ControlParameter ControlID="txMonto" Name="monto" PropertyName="Text" Type="Int32" />
                     <asp:ControlParameter ControlID="dlTipo" Name="tipo" PropertyName="SelectedValue" />
                 </InsertParameters>
                 <UpdateParameters>
                     <asp:ControlParameter ControlID="dlCuentas" Name="idCuenta" PropertyName="SelectedValue" Type="Int32" />
-                    <asp:ControlParameter ControlID="txDescripcion" Name="descripcion" PropertyName="Text" Type="String" />
                     <asp:ControlParameter ControlID="txMonto" Name="monto" PropertyName="Text" Type="Int32" />
                     <asp:ControlParameter ControlID="dlTipo" Name="tipo" PropertyName="SelectedValue" Type="Boolean" />
                     <asp:ControlParameter ControlID="dlTransacciones" Name="id" PropertyName="SelectedValue" />

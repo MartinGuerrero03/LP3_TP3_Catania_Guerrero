@@ -69,15 +69,6 @@ namespace LP3_TP3_Catania_Guerrero
         protected global::System.Web.UI.WebControls.DropDownList dlCuentas;
 
         /// <summary>
-        /// Control txDescripcion.
-        /// </summary>
-        /// <remarks>
-        /// Campo generado automáticamente.
-        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txDescripcion;
-
-        /// <summary>
         /// Control txMonto.
         /// </summary>
         /// <remarks>
